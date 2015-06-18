@@ -8,6 +8,15 @@ var instagram = require('instagram-node-lib');
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 
+// how to use middleware in express - this will set the command to activate the middleware
+app.use(morgan('dev'));
+
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
 instagram.set('client_id', process.env.INSTAGRAM_CLIENT_ID);
 instagram.set('client_secret', process.env.INSTAGRAM_CLIENT_SECRET);
 instagram.set('callback_url', 'http://b056f2e8.ngrok.io/callback');
@@ -16,23 +25,15 @@ instagram.set('maxSockets', 100);
 
 instagram.subscriptions.subscribe({
   object: 'tag',
-  object_id: 'hazard',
+  object_id: 'New York',
   aspect: 'media',
   callback_url: 'http://b056f2e8.ngrok.io/callback',
   type: 'subscription',
   id: '#' });
 
-app.set('views', './views');
-app.set('view engine', 'ejs');
-
-app.use(morgan('dev'));
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
-
 app.get("/", function (req, res) {
   res.render('index');
 });
-
 
 app.use('/', router);
 
@@ -56,7 +57,7 @@ app.post('/callback', function(req, res){
   var data = req.body;
   console.log(data)
   data.forEach(function(tag){
-    var url = 'https://api.instagram.com/v1/tags/'+ tag.object_id + '/media/recent?client_id='+ 'c3a604574d5b44149951f4173d1f9a4b';
+    var url = 'https://api.instagram.com/v1/tags/'+ tag.object_id + '/media/recent?client_id='+ process.env.INSTAGRAM_CLIENT_ID;
     sendMessage(url);
     });
     res.end();
