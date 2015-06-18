@@ -10,15 +10,15 @@ var bodyParser = require('body-parser');
 
 instagram.set('client_id', process.env.INSTAGRAM_CLIENT_ID);
 instagram.set('client_secret', process.env.INSTAGRAM_CLIENT_SECRET);
-instagram.set('callback_url', 'http://ca45752e.ngrok.io/callback');
-instagram.set('redirect_uri', 'http://ca45752e.ngrok.io');
+instagram.set('callback_url', 'http://b056f2e8.ngrok.io/callback');
+instagram.set('redirect_uri', 'http://b056f2e8.ngrok.io');
 instagram.set('maxSockets', 100);
 
 instagram.subscriptions.subscribe({
   object: 'tag',
-  object_id: 'blue',
+  object_id: 'hazard',
   aspect: 'media',
-  callback_url: 'http://ca45752e.ngrok.io/callback',
+  callback_url: 'http://b056f2e8.ngrok.io/callback',
   type: 'subscription',
   id: '#' });
 

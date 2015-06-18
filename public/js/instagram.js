@@ -1,4 +1,4 @@
-  var socket = io('http://ca45752e.ngrok.io');
+  var socket = io('http://b056f2e8.ngrok.io');
   var count = 0;
   var photos = [];
 
